@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">RasenShuriken</string>
+    <string name="addIntent">Click here to add an Intent</string>
+    <string-array name="uploads">
+        <item>Text</item>
+        <item>Document</item>
+        <item>Image</item>
+        <item>Video</item>
+    </string-array>
+    <string-array name="spinner1">
+        <item>Microeconomie</item>
+        <item>Macroeconomie</item>
+    </string-array>
+    <string-array name="spinner2">
+        <item>Algebra</item>
+        <item>Analiza Matematica</item>
+    </string-array>
+    <string-array name="spinner3">
+        <item>C#</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>Python</item>
+    </string-array>
+    <string-array name="spinner4">
+        <item>Daily Physics</item>
+        <item>Gravitational Physics</item>
+        <item>Basic Physics</item>
+    </string-array>
+    <string-array name="spinner5">
+        <item>Anatomia animala</item>
+        <item>Anatomia vegetala</item>
+        <item>Anatomia omului</item>
+    </string-array>
+    <string name="title_activity_top_articles">TopArticles</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

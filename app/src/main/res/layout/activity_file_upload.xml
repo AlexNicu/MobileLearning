@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FileUpload">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/selectFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="Select File" />
+
+    <TextView
+        android:id="@+id/textViewfa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:text="No file selected" />
+
+    <MultiAutoCompleteTextView
+        android:layout_width="374dp"
+        android:layout_height="129dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="250dp"
+        android:gravity="top"
+        android:layout_marginRight="10dp"
+        android:hint="Insert text" />
+
+    <Button
+        android:id="@+id/uploadFile"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/selectFile"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="400dp"
+        android:text="Upload" />
+
+    <Button
+        android:id="@+id/nextPage"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="500dp"
+        android:text="Next Page"
+        android:onClick="NextPage"/>
+
+
+</RelativeLayout>
+</ScrollView>
