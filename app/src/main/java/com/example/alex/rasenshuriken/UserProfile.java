@@ -139,14 +139,14 @@ String displayName;
     }
 
     private void uploadImageFirebase() {
-        StorageReference ImageRef = FirebaseStorage.getInstance().getReference("images/"+System.currentTimeMillis()+ ".jpg");
+        StorageReference ImageRef = FirebaseStorage.getInstance().getReference("images/"+System.currentTimeMillis()+".jpg");
         if(uriImage!=null){
             pb.setVisibility(View.VISIBLE);
             ImageRef.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     pb.setVisibility(View.GONE);
-                    imageUrl=taskSnapshot.getDownloadUrl().toString();
+                    imageUrl=taskSnapshot.getStorage().getDownloadUrl().toString();
                 }
 
             })

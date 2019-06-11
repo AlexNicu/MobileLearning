@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
            public void onComplete(@NonNull Task<AuthResult> task) {
                progressBar.setVisibility(View.GONE);
                if(task.isSuccessful()){
-               Intent intent=new Intent(MainActivity.this,UploadActivity.class);
+               Intent intent=new Intent(MainActivity.this,UplArticles.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                }
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
            }
        });
     }
-
 
     @Override
     public void onClick(View view) {

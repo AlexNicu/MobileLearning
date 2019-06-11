@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Fetch Files"
         tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="70dp" />
+        tools:layout_editor_absoluteY="70dp"
+      />
 
     <Button
         android:id="@+id/button2"
@@ -29,4 +30,12 @@
         android:text="Button"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="578dp" />
+
+    <TextView
+        android:id="@+id/notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="373dp" />
 </android.support.constraint.ConstraintLayout>

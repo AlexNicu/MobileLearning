@@ -25,8 +25,7 @@ public class UplArticles extends AppCompatActivity implements AdapterView.OnItem
         Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
         Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
         Spinner spinner5 = (Spinner) findViewById(R.id.spinner5);
-
-
+        
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.spinner1, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
@@ -50,6 +49,7 @@ public class UplArticles extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
+//TODO Este o problema la switch, intra pe toate deodata si forteaza 5x back-uri pentru a alege optiunea dorita corect
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String sSelected=parent.getItemAtPosition(position).toString();

@@ -1,9 +1,11 @@
 package com.example.alex.rasenshuriken;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -30,16 +32,29 @@ public class RetrievePDF extends AppCompatActivity {
         setContentView(R.layout.activity_retrieve_pdf);
 
         fetch=findViewById(R.id.fetchFiles);
+        fetch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivity(new Intent(RetrievePDF.this,MyListView.class));
+            }
+        });
+
+
         storage=FirebaseStorage.getInstance();
         database=FirebaseDatabase.getInstance();
 
+        selectFile=findViewById(R.id.selectFile);
+        upload=findViewById(R.id.uploadFile);
+        notification=findViewById(R.id.notifications);
 
+        selectFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
 
     }
-
-
 
 }

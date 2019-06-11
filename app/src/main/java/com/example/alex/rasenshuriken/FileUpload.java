@@ -39,7 +39,7 @@ public class FileUpload extends AppCompatActivity {
     FirebaseDatabase database; //storing URLs of uploaded files
     ProgressDialog progressDialog;
     String pivot,name,subject,subdomain,title,page;
-    private int keeper = 1;
+     int keeper = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,9 @@ public class FileUpload extends AppCompatActivity {
         notification=findViewById(R.id.textViewfa);
         pivot=getIntent().getExtras().getString("value");
         SharedPreferences sharedpref2=getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        //putstring name la logare, iar la delogare sa fie null
+        // get int la keeper si sa il modific la int
+        //upload la prima pagina putint cu 1, dupa ce apesi next, se ia get int keeper, dar si modificare putint keeper=2;
         name=sharedpref2.getString("username", "nu-merge");
         SharedPreferences sharedpref3=getSharedPreferences("uploadFile", Context.MODE_PRIVATE);
         subdomain=sharedpref3.getString("subfilename", "nu-merge");
@@ -98,7 +101,7 @@ public class FileUpload extends AppCompatActivity {
         storageReference.child("Uploads/"+subject+"/"+subdomain+"/"+name+"/"+page).child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                String url= taskSnapshot.getDownloadUrl().toString(); //return the url of the uploaded file
+                String url= taskSnapshot.getStorage().getDownloadUrl().toString(); //return the url of the uploaded file
                 //storing the url in the database
                 DatabaseReference reference=database.getReference(); //return the path to root
                 reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -170,7 +173,10 @@ public class FileUpload extends AppCompatActivity {
         }
 
     }
-
+//TODO Keeper este variabila de auto-incrementare, trecuta prin sharedPreference4 la adresa de salvare a documentului salvat
+    //Principiul este ca atunci cand utilizatorul salveaza un fisier, eu ii trimit prin denumirea fisierului
+    //si adresa unde sa se salveze, iar keeper ar trebui sa fie o variabila care se schimba constant
+    //pentru a crea un nou fisier de fiecare data cand buttonul respectiv se apasa "next page".
     public void NextPage(View view) {
         SharedPreferences sharedpref4=getSharedPreferences("uploadInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor4=sharedpref4.edit();
@@ -178,13 +184,15 @@ public class FileUpload extends AppCompatActivity {
         nextPage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                keeper=keeper+1;
                 String ok= ""+keeper;
                 editor4.putString("page",ok);
+               // editor4.putInt("page",keeper);
                 editor4.apply();
+                keeper=keeper+1;
                 startActivity(new Intent(FileUpload.this, UploadActivity.class));
             }
         });
-
+        // get int la keeper si sa il modific la int
+        //upload la prima pagina putint cu 1, dupa ce apesi next, se ia get int keeper, dar si modificare putint keeper=2;
     }
 }

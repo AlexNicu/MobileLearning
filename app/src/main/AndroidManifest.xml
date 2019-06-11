@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RetrievePDF"></activity>
+        <activity android:name=".MyListView"></activity>
+        <activity android:name=".RetrievePDF" />
         <activity android:name=".UplArticles" />
         <activity android:name=".MainActivity">
 
