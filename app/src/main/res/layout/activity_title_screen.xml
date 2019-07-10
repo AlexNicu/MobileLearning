@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TitleScreen">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/titleread"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Provide the title for your lesson"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_marginTop="150dp"
+            />
+
+    <EditText
+        android:id="@+id/titlewrite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="sans-serif"
+        android:hint="Introduce the title"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="290dp"
+        />
+
+
+        <Button
+            android:id="@+id/Back2"
+            android:layout_width="106dp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="300dp"
+            android:layout_height="wrap_content"
+            android:text="Back"
+           />
+
+        <Button
+            android:id="@+id/Next2"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="500dp"
+            android:layout_marginRight="10dp"
+            android:text="Next Page"
+           />
+
+
+    </RelativeLayout>
+
+</ScrollView>

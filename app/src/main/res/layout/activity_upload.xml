@@ -144,7 +144,9 @@
 
                 android:text="Text and Image*"/>
         </TableRow>
+
     </TableLayout>
+
 
 </LinearLayout>
 

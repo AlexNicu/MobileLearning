@@ -26,13 +26,14 @@
         android:layout_marginTop="150dp"
         android:text="No file selected" />
 
-    <MultiAutoCompleteTextView
+    <EditText
         android:layout_width="374dp"
         android:layout_height="129dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="250dp"
         android:gravity="top"
         android:layout_marginRight="10dp"
+        android:id="@+id/PText"
         android:hint="Insert text" />
 
     <Button
@@ -45,12 +46,23 @@
         android:text="Upload" />
 
     <Button
+        android:id="@+id/Finish"
+        android:layout_width="106dp"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="300dp"
+        android:layout_height="wrap_content"
+        android:text="Finish"
+        android:onClick="Finish"/>
+
+    <Button
         android:id="@+id/nextPage"
         android:layout_width="106dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="500dp"
+        android:layout_marginRight="10dp"
         android:text="Next Page"
         android:onClick="NextPage"/>
 

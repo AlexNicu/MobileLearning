@@ -88,7 +88,7 @@ public class VideoUpload extends AppCompatActivity {
 
     public void download (View view){
         try{
-            final File localFile=File.createTempFile("UserIntro","3gp");
+            final File localFile=File.createTempFile("UserVideo","3gp");
             videoRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
            public void onComplete(@NonNull Task<AuthResult> task) {
                progressBar.setVisibility(View.GONE);
                if(task.isSuccessful()){
-               Intent intent=new Intent(MainActivity.this,UplArticles.class);
+               Intent intent=new Intent(MainActivity.this,UserProfile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                }

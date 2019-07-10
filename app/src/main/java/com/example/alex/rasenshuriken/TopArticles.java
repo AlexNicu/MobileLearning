@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.data.model.User;
 
@@ -20,6 +22,7 @@ import com.firebase.ui.auth.data.model.User;
 
 public class TopArticles extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+TextView lines;
 
 
     @Override
@@ -82,7 +85,7 @@ public class TopArticles extends AppCompatActivity
         if (id == R.id.nav_home) {
             startActivity(new Intent(this,TopArticles.class));
         } else if (id == R.id.nav_articles) {
-            startActivity(new Intent(this,UplArticles.class));
+            startActivity(new Intent(this,ListArticles2.class));
 
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this,UserProfile.class));
@@ -103,4 +106,7 @@ public class TopArticles extends AppCompatActivity
         Intent i = new Intent(TopArticles.this,LessonActivity.class);
         startActivity(i);
     }
+
+
+
 }

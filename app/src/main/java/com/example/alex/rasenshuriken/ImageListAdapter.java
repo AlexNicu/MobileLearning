@@ -39,11 +39,13 @@ public class ImageListAdapter extends ArrayAdapter<ImageUpload> {
         LayoutInflater inflater=context.getLayoutInflater();
 
         View v=inflater.inflate(resource,null);
-        TextView tvName=v.findViewById(R.id.tvImageName);
-        ImageView img=v.findViewById(R.id.imgViewItem);
+        TextView tvName=v.findViewById(R.id.titlewrite);
+        TextView username=v.findViewById(R.id.etUserName);
+       // ImageView img=v.findViewById(R.id.imgViewItem);
 
         tvName.setText(listImage.get(position).getName());
-        Glide.with(context).load(listImage.get(position).getUrl()).into(img);
+        username.setText(listImage.get(position).getName());
+       // Glide.with(context).load(listImage.get(position).getUrl()).into(img);
 
         return v;
     }

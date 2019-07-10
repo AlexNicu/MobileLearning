@@ -15,118 +15,63 @@
             android:text="Articles"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:layout_marginTop="20dp"
             />
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Economy"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
-                    android:id="@+id/spinner1"
-                    android:layout_weight="1"
+            android:layout_height="match_parent"
+            >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Choose a topic"
+    android:layout_gravity="center_vertical"
+    android:layout_marginTop="100dp"
+    android:layout_marginLeft="100dp"
+    android:textSize="20dp"
+    />
+            <Spinner
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:id="@+id/spinnerTest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Choose a subject"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="100dp"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:id="@+id/spinnersubTest"
+                android:spinnerMode="dropdown"
+                android:layout_weight="1"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"/>
 
-                    android:layout_marginRight="100dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mathematics"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
-                    android:id="@+id/spinner2"
-                    android:layout_weight="1"
-                    android:layout_marginRight="100dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Programming"
-                    android:id="@+id/programming"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
-                    android:id="@+id/spinner3"
-                    android:layout_weight="1"
-                    android:layout_marginRight="100dp"
-
-                    />
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Physics"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
-                    android:id="@+id/spinner4"
-                    android:layout_weight="1"
-                    android:layout_marginRight="100dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Biology"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
-                    android:id="@+id/spinner5"
-                    android:layout_weight="1"
-                    android:layout_marginRight="100dp"/>
-            </TableRow>
         </TableLayout>
-
-
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="35dp"
+            android:text="Previous page"/>
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-50dp"
+            android:layout_marginLeft="230dp"
+            android:text="Next page"/>
     </LinearLayout>
 </ScrollView>

@@ -43,7 +43,7 @@ private DatabaseReference mDatabaseRef;
     ImageButton image,image2,video,video2,audio,audio2,file,file2;
     TextView tl,tl2,tl3,tl4;
     Button nextPage;
-private int keeper;
+private  int keeper;
 public static final String Storage_Path="image/";
 public static final String Database_Path="image";
     public static final int Request_Code=1234;
@@ -279,22 +279,5 @@ public static final String Database_Path="image";
         startActivity(i);
     }
 
-    //TODO De verificat mai tarziu de ce am pus  functia si aici
-   /* public void NextPage(View view) {
-        SharedPreferences sharedpref4=getSharedPreferences("uploadInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor4=sharedpref4.edit();
-        keeper=sharedpref4.getInt("page",0);
-        nextPage=findViewById(R.id.nextPage);
-        nextPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                keeper=keeper+1;
-                //String ok= ""+keeper;
-                editor4.putInt("page",keeper);
-                editor4.apply();
 
-            }
-        });
-
-    }  */
 }

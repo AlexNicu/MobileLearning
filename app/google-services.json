@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "899781648799",
+    "firebase_url": "https://rasenshuriken-4e3c7.firebaseio.com",
+    "project_id": "rasenshuriken-4e3c7",
+    "storage_bucket": "rasenshuriken-4e3c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899781648799:android:6859f0f4540cfbe6",
+        "android_client_info": {
+          "package_name": "com.example.alex.rasenshuriken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899781648799-2pfou4sq6tjrpcriu6r30ahphbkprblb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alex.rasenshuriken",
+            "certificate_hash": "1548fa8783f95490dcbdc72b1a8ac972c46e3ad3"
+          }
+        },
+        {
+          "client_id": "899781648799-34qvcioosuua2ao63a3ne7796nn2do8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alex.rasenshuriken",
+            "certificate_hash": "1cf9e8ee25f71af1bbb4932265b1d9486b643230"
+          }
+        },
+        {
+          "client_id": "899781648799-2kkugv1i0nqguj055ls6e6vu6onc3e8b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV1mIYJKezof8i4g4efLKcarixDAvWEXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899781648799-2kkugv1i0nqguj055ls6e6vu6onc3e8b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

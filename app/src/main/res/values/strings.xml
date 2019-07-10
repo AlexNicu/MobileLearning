@@ -7,29 +7,60 @@
         <item>Image</item>
         <item>Video</item>
     </string-array>
-    <string-array name="spinner1">
-        <item>Microeconomie</item>
-        <item>Macroeconomie</item>
+    <string-array name="Economy">
+        <item>Select a subject</item>
+        <item>Microeconomy</item>
+        <item>Macroeconomy</item>
     </string-array>
-    <string-array name="spinner2">
+    <string-array name="Mathematics">
+        <item>Select a subject</item>
         <item>Algebra</item>
-        <item>Analiza Matematica</item>
+        <item>Mathematical Analysis</item>
     </string-array>
-    <string-array name="spinner3">
+    <string-array name="Programming">
+        <item>Select a subject</item>
         <item>C#</item>
         <item>C++</item>
         <item>Java</item>
         <item>Python</item>
     </string-array>
-    <string-array name="spinner4">
+    <string-array name="Physics">
+        <item>Select a subject</item>
         <item>Daily Physics</item>
         <item>Gravitational Physics</item>
         <item>Basic Physics</item>
     </string-array>
-    <string-array name="spinner5">
-        <item>Anatomia animala</item>
-        <item>Anatomia vegetala</item>
-        <item>Anatomia omului</item>
+    <string-array name="Biology">
+        <item>Select a subject</item>
+        <item>Economy</item>
+        <item>Animal Anatomy</item>
+        <item>Plant Anatomy</item>
+        <item>Human Anatomy</item>
+    </string-array>
+    <string-array name="spinnerTest">
+        <item>Select a topic</item>
+        <item>Economy</item>
+        <item>Mathematics</item>
+        <item>Programming</item>
+        <item>Physics</item>
+        <item>Biology</item>
+    </string-array>
+    <string-array name="spinnersubTest">
+        <item>Select a topic</item>
+        <item>Microeconomy</item>
+        <item>Macroeconomy</item>
+        <item>Algebra</item>
+        <item>Mathematical Analysis</item>
+        <item>C#</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>Python</item>
+        <item>Daily Physics</item>
+        <item>Gravitational Physics</item>
+        <item>Basic Physics</item>
+        <item>Animal Anatomy</item>
+        <item>Vegetal Anatomy</item>
+        <item>Human Anatomy</item>
     </string-array>
     <string name="title_activity_top_articles">TopArticles</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -70,7 +70,7 @@ String displayName;
 
                 saveUserInfo();
 
-                Intent i = new Intent(UserProfile.this,TopArticles.class);
+                Intent i = new Intent(UserProfile.this,UplArticles.class);
                 startActivity(i);
             }
         });

@@ -42,8 +42,8 @@ public class ImageListActivity extends AppCompatActivity {
                 //Fetch image data from firebase database
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     //image upload class require default constructor
-                    ImageUpload img=snapshot.getValue(ImageUpload.class);
-                    imgList.add(img);
+                  //  ImageUpload img=snapshot.getValue(ImageUpload.class);
+                //    imgList.add(img);
                 }
                 //Initialize adapter
                 adapter=new ImageListAdapter(ImageListActivity.this,R.layout.image_item,imgList);
