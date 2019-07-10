@@ -1,57 +1,66 @@
 package com.example.alex.rasenshuriken;
 
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
-
-import com.firebase.client.ValueEventListener;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class ListArticles extends AppCompatActivity {
 
-    DatabaseReference reference;
-    RecyclerView recyclerView;
-    ArrayList<ContactsContract.Profile> list;
-    MyAdapter adapter;
+    ListView listView;
+    ArrayList<String> myArrayList= new ArrayList<>();
+    Firebase myFirebase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_list_articles);
 
-        recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
-        recyclerView.setLayoutManager( new LinearLayoutManager(this));
+        Firebase.setAndroidContext(this);
+        myFirebase= new Firebase("https://rasenshuriken-4e3c7.firebaseio.com/Titles");
 
-
-        reference = FirebaseDatabase.getInstance().getReference().child("Profiles");
-        reference.addValueEventListener(new ValueEventListener() {
+        listView=findViewById(R.id.ArticleslistView);
+        ArrayAdapter<String> myArrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayList);
+        listView.setAdapter(myArrayAdapter);
+        myFirebase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<Profile>();
-                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
-                {
-                    Profile p = dataSnapshot1.getValue(Profile.class);
-                    list.add(p);
-                }
-                adapter = new MyAdapter(MainActivity.this,list);
-                recyclerView.setAdapter(adapter);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String myChildValues=dataSnapshot.getValue(String.class);
+                myArrayList.add(myChildValues);
+                myArrayAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                myArrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
             }
         });
+
     }
 
 
