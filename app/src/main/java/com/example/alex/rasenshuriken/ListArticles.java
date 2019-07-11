@@ -1,5 +1,6 @@
 package com.example.alex.rasenshuriken;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -25,7 +26,8 @@ public class ListArticles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_articles);
-
+//TODO Daca folosesc link-ul pentru titluri, da eroare (pe internet am gasit ceva legat de faptul ca
+// string-ul nu poate fi serializat ca JSON si probabil ar trebui sa creez o clasa de obiecte si sa returnez obiect in loc de string
         Firebase.setAndroidContext(this);
         myFirebase= new Firebase("https://rasenshuriken-4e3c7.firebaseio.com/Titles");
 
@@ -38,6 +40,8 @@ public class ListArticles extends AppCompatActivity {
                 String myChildValues=dataSnapshot.getValue(String.class);
                 myArrayList.add(myChildValues);
                 myArrayAdapter.notifyDataSetChanged();
+                startActivity(new Intent(ListArticles.this, LessonActivity.class));
+
             }
 
             @Override

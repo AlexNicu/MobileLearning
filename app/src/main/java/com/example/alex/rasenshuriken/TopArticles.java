@@ -85,7 +85,7 @@ TextView lines;
         if (id == R.id.nav_home) {
             startActivity(new Intent(this,TopArticles.class));
         } else if (id == R.id.nav_articles) {
-            startActivity(new Intent(this,ListArticles2.class));
+            startActivity(new Intent(this,ListArticles.class));
 
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this,UserProfile.class));

@@ -1,5 +1,6 @@
 package com.example.alex.rasenshuriken;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,11 +35,16 @@ public class ListArticles2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text=lv.getItemAtPosition(position).toString();
                 Toast.makeText(ListArticles2.this,""+text,Toast.LENGTH_LONG).show();
+                startActivity(new Intent(ListArticles2.this, LessonActivity.class));
+
             }
         });
 
     }
-
+//TODO Prin mysql database reuseste sa creeze, dar decat un singur rand. Am facut clasa FileUpload sa mosteneasca
+    //functiile acestei clase si prin finalizarea unei lectii (apasarea butonului de finish) sa dea refresh la list view
+    //insa nu reuseste sa mai adauge nimic in lista, ramanand doar primul titlu pe care l-am testat cand am rulat aplicatia
+    //dupa ce am terminat de scris functiile.
     public  void viewData() {
         Cursor cursor= db.viewData();
         if(cursor.getCount()==0){
