@@ -16,289 +16,89 @@ import java.io.File;
 
 
 public class UplArticles extends AppCompatActivity {
-Button back,next;
-public int ok=0;
-public int subok=0;
+    Button back, next;
+    int idArraySubdomains = 0;
+    int ok = 1, subok = 1;
+    Spinner spinnerTest, spinnersubTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upl_articles);
 
-        Spinner spinnerTest = (Spinner) findViewById(R.id.spinnerTest);
-        Spinner spinnersubTest=findViewById(R.id.spinnersubTest);
-        back=findViewById(R.id.back);
-        next=findViewById(R.id.next);
+        spinnerTest = (Spinner) findViewById(R.id.spinnerTest);
+        spinnersubTest = findViewById(R.id.spinnersubTest);
+        back = findViewById(R.id.back);
+        next = findViewById(R.id.next);
 
-        back.setOnClickListener(new View.OnClickListener(){
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UplArticles.this, TopArticles.class));
             }
         });
 
-
-
-        ArrayAdapter<CharSequence> adapterTest = ArrayAdapter.createFromResource(this,R.array.spinnerTest, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterTest = ArrayAdapter.createFromResource(this, R.array.spinnerTest, android.R.layout.simple_spinner_item);
         adapterTest.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTest.setAdapter(adapterTest);
+        spinnerTest.setSelection(0,false);//sa nu faca fire pe ontiemselected la intializare!
+
+
         spinnerTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String sSelected=parent.getItemAtPosition(position).toString();
-                SharedPreferences sharedpref3=getSharedPreferences("uploadFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor3=sharedpref3.edit();
-                String domain ;
-                switch(sSelected) {
+                String domain = parent.getItemAtPosition(position).toString();
+                SharedPreferences sharedpref3 = getSharedPreferences("uploadFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor3 = sharedpref3.edit();
+
+                switch (domain) {
                     case "Economy":
-                        domain="Economy";
-                        ok=1;
-                        ArrayAdapter<CharSequence> EconomyAdapter = ArrayAdapter.createFromResource(UplArticles.this,R.array.Economy, android.R.layout.simple_spinner_item);
-                        spinnersubTest.setAdapter(EconomyAdapter);
-                        spinnersubTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                String selected=parent.getItemAtPosition(position).toString();
-                                String subdomain="";
-                                switch (selected){
-                                    case "Microeconomy":
-                                       subdomain="Microeconomy";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Macroeconomy":
-                                        subdomain="Macroeconomy";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Select a subject" :
-                                        subdomain="Select a subject";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=0;
-                                        }
-                                    default:
-                                        subdomain="Select a subject";
-                                }
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                            }
-                        });
+                        idArraySubdomains = R.array.Economy;
                         break;
                     case "Mathematics":
-                        domain="Mathematics";
-                        ok=1;
-                        ArrayAdapter<CharSequence> MathematicsAdapter = ArrayAdapter.createFromResource(UplArticles.this,R.array.Mathematics, android.R.layout.simple_spinner_item);
-                        spinnersubTest.setAdapter(MathematicsAdapter);
-                        spinnersubTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void  onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                String subdomain="";
-                                String selected=parent.getItemAtPosition(position).toString();
-                                switch (selected){
-                                    case "Algebra":
-                                        subdomain="Algebra";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Mathematical Analysis":
-                                        subdomain="Mathematical Analysis";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case "Select a subject" :
-                                        subdomain="Select a subject";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=0;
-                                        }
-                                    default:
-                                        subdomain="Select a subject";
-                            }
-                        }
-                         @Override
-                          public void onNothingSelected(AdapterView<?> parent) {
-
-                         }
-                           });
+                        idArraySubdomains = R.array.Mathematics;
                         break;
                     case "Physics":
-                        domain="Physics";
-                        ok=1;
-                        ArrayAdapter<CharSequence> PhysicsyAdapter = ArrayAdapter.createFromResource(UplArticles.this,R.array.Physics, android.R.layout.simple_spinner_item);
-                        spinnersubTest.setAdapter(PhysicsyAdapter);
-                        spinnersubTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                String subdomain="";
-                                String selected=parent.getItemAtPosition(position).toString();
-                                switch (selected){
-                                    case "Daily Physics":
-                                        subdomain="Daily Physics";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case "Gravitational Physics":
-                                        subdomain="Gravitational Physics";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case "Basic Physics":
-                                        subdomain="Basic Physics";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case "Select a subject":
-                                        subdomain="Select a subject";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=0;
-                                        }
-                                    default:
-                                        subdomain="Select a subject";
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
+                        idArraySubdomains = R.array.Physics;
                         break;
                     case "Programming":
-                        domain="Programming";
-                        ok=1;
-                        ArrayAdapter<CharSequence> ProgrammingAdapter = ArrayAdapter.createFromResource(UplArticles.this,R.array.Programming, android.R.layout.simple_spinner_item);
-                        spinnersubTest.setAdapter(ProgrammingAdapter);
-                        spinnersubTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                String subdomain="";
-                                String selected=parent.getItemAtPosition(position).toString();
-                                switch (selected){
-                                    case "C#":
-                                        subdomain="C#";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"C++":
-                                        subdomain="C++";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Java":
-                                        subdomain="Java";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Python":
-                                        subdomain="Python";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case "Select a subject":
-                                        subdomain="Select a subject";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=0;
-                                        }
-                                    default :
-                                        subdomain="Select a subject";
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
+                        idArraySubdomains = R.array.Programming;
                         break;
-
                     case "Biology":
-                        domain="Biology";
-                        ok=1;
-                        ArrayAdapter<CharSequence> BiologyAdapter = ArrayAdapter.createFromResource(UplArticles.this,R.array.Biology, android.R.layout.simple_spinner_item);
-                        spinnersubTest.setAdapter(BiologyAdapter);
-                        spinnersubTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                String subdomain="";
-                                String selected=parent.getItemAtPosition(position).toString();
-                                switch (selected){
-                                    case "Animal Anatomy":
-                                        subdomain="Animal Anatomy";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Vegetal Anatomy":
-                                        subdomain="Vegetal Anatomy";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-                                    case"Human Anatomy":
-                                        subdomain="Human Anatomy";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=1;
-                                        }
-                                        break;
-
-                                    case "Select a subject":
-                                        subdomain="Select a subject";
-                                        if(subdomain != "") {
-                                            editor3.putString("subfilename", subdomain);
-                                            subok=0;
-                                        }
-                                        break;
-                                    default:
-                                        subdomain="Select a subject";
-                                }
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                            }
-                        });
+                        idArraySubdomains = R.array.Biology;
                         break;
                     case "Select a topic":
-                        ok=0;
-                        domain="Select a topic";
+                        ok = 0;
                         break;
-                    default:
-                        domain="Select a topic";
-
                 }
 
+                if (ok != 0) {
 
-                editor3.putString("filename",domain);
-                editor3.apply();
 
-               // Toast.makeText(UplArticles.this,sSelected,Toast.LENGTH_SHORT).show();
+                    editor3.putString("filename", domain);
+                    editor3.apply();
+
+                    ArrayAdapter<CharSequence> subdomainAdapter = ArrayAdapter.createFromResource(UplArticles.this, idArraySubdomains, android.R.layout.simple_spinner_item);
+                    spinnersubTest.setAdapter(subdomainAdapter);
+                    spinnersubTest.setSelection(0,false);//sa nu faca fire pe ontiemselected la intializare!
+                    spinnersubTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            String subdomain = parent.getItemAtPosition(position).toString();
+
+                            if (subdomain.equals("Select a subject")) {
+                                subok = 0;
+                            } else {
+                                editor3.putString("subfilename", subdomain);
+                                editor3.apply();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
+                }
 
             }
 
@@ -309,19 +109,17 @@ public int subok=0;
         });
 
 
-        next.setOnClickListener(new View.OnClickListener(){
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((ok!=0 )&&(subok!=0)){
+                if ((ok != 0) && (subok != 0)) {
                     startActivity(new Intent(UplArticles.this, TitleScreen.class));
                 }
-                else if (ok==0){
-                    Toast.makeText(UplArticles.this,"A topic must be selected",Toast.LENGTH_LONG).show();
+                if (ok == 0) {
+                    Toast.makeText(UplArticles.this, "A topic must be selected", Toast.LENGTH_LONG).show();
+                } else if (subok == 0) {
+                    Toast.makeText(UplArticles.this, "A subject must be selected", Toast.LENGTH_LONG).show();
                 }
-                else{
-                    Toast.makeText(UplArticles.this,"A subject must be selected",Toast.LENGTH_LONG).show();
-                }
-
             }
         });
 
@@ -329,7 +127,6 @@ public int subok=0;
 
 
 }
-
 
 
 //spinner cu domeniu ---> onitemselected apare sub-domeniu

@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,9 +32,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class FileUpload extends ListArticles2  {
+public class FileUpload extends AppCompatActivity  {
 
-    DatabaseHelper db;
     Button selectFile, upload, nextPage, finish;
     TextView notification;
     EditText PText;
@@ -43,6 +43,7 @@ public class FileUpload extends ListArticles2  {
     ProgressDialog progressDialog;
     String pivot, name, subject, subdomain, title, saver;
     DatabaseReference mDatabaseReference;
+    DatabaseReference databaseLesson;
     int page;
 
     @Override
@@ -50,7 +51,6 @@ public class FileUpload extends ListArticles2  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
 
-        db= new DatabaseHelper(this);
 
         storage = FirebaseStorage.getInstance(); //returns an object of FireBase Storage
         database = FirebaseDatabase.getInstance();
@@ -186,10 +186,7 @@ public class FileUpload extends ListArticles2  {
 
     }
 
-    //TODO Keeper este variabila de auto-incrementare, trecuta prin sharedPreference4 la adresa de salvare a documentului salvat
-    //Principiul este ca atunci cand utilizatorul salveaza un fisier, eu ii trimit prin denumirea fisierului
-    //si adresa unde sa se salveze, iar keeper ar trebui sa fie o variabila care se schimba constant
-    //pentru a crea un nou fisier de fiecare data cand buttonul respectiv se apasa "next page".
+
     public void NextPage(View view) {
         SharedPreferences sharedpref4 = getSharedPreferences("uploadInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor4 = sharedpref4.edit();
@@ -210,17 +207,20 @@ public class FileUpload extends ListArticles2  {
     public void Finish(View view){
         finish=findViewById(R.id.Finish);
         SharedPreferences sharedpref2 = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        name = sharedpref2.getString("username", "nu-merge");
+       String name = sharedpref2.getString("username", "nu-merge");
         SharedPreferences sharedpref3 = getSharedPreferences("uploadFile", Context.MODE_PRIVATE);
-        title = sharedpref3.getString("title", "nu-merge");
+       String title = sharedpref3.getString("title", "tilulNu-merge");
+        String subdomain = sharedpref3.getString("subfilename", "subdomainNu-merge");
+        String subject = sharedpref3.getString("filename", "subjectNu-merge");
         finish.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(FileUpload.this, "The lesson has been published", Toast.LENGTH_LONG).show();
 
-                listItem.clear();
-                db.insertData(name,title);
-                viewData();
+                databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
+                String id=databaseLesson.push().getKey();
+                Lesson lesson=new Lesson(id, subject,subdomain,title,name);
+                databaseLesson.child(id).setValue(lesson);
 
                 startActivity(new Intent(FileUpload.this, TopArticles.class));
 

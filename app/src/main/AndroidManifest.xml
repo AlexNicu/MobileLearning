@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListArticles2"></activity>
         <activity android:name=".TitleScreen" />
         <activity android:name=".ListArticles" />
         <activity android:name=".MyListView" />
@@ -48,7 +47,6 @@
         </activity>
         <activity android:name=".Articles" />
         <activity android:name=".VideoActivity" />
-        <activity android:name=".LinkUpload" />
     </application>
 
 </manifest>

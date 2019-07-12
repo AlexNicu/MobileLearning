@@ -14,11 +14,12 @@ public class VideoActivity extends AppCompatActivity {
 
 
     }
-
+/*
     public void btnLink(View v){
         Intent i = new Intent(VideoActivity.this,LinkUpload.class);
         startActivity(i);
     }
+    */
     public void btnVideo(View v){
         Intent i = new Intent(VideoActivity.this,VideoUpload.class);
         startActivity(i);
