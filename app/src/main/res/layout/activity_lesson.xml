@@ -17,8 +17,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="*Title*"
+        android:id="@+id/LessonTitle"
         android:textStyle="bold"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:gravity="center"
         android:textSize="20dp"
 
@@ -35,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="*Content*"
+            android:id="@+id/TextLesson"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="20dp"

@@ -73,7 +73,7 @@ public class FileUpload extends AppCompatActivity  {
         page = sharedpref4.getInt("page", 0);
         title = sharedpref3.getString("title", "nu-merge");
 
-        mDatabaseReference=FirebaseDatabase.getInstance().getReference();
+        mDatabaseReference=FirebaseDatabase.getInstance().getReference("Uploads");
 
 
         selectFile.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +94,9 @@ public class FileUpload extends AppCompatActivity  {
                     uploadFile(pdfUri);
                 else if (PText!=null){
                     saver= PText.getText().toString();
-                    //TODO subdomain salveaza Macroeconomie indiferent de subiectul selectat
-                    mDatabaseReference.child("Uploads/" + subject + "/" + subdomain + "/" + name + "/"+title+ "/" + page).push().setValue(saver);
+                    String id=  mDatabaseReference.push().getKey();
+                    TextMessage tm=new TextMessage(id,saver,subject,subdomain,title,name,page);
+                    mDatabaseReference.child(id).setValue(tm);
                     Toast.makeText(FileUpload.this, "The text was uploaded", Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -221,6 +222,8 @@ public class FileUpload extends AppCompatActivity  {
                 String id=databaseLesson.push().getKey();
                 Lesson lesson=new Lesson(id, subject,subdomain,title,name);
                 databaseLesson.child(id).setValue(lesson);
+
+                page=0;
 
                 startActivity(new Intent(FileUpload.this, TopArticles.class));
 

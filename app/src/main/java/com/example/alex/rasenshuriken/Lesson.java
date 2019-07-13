@@ -16,6 +16,10 @@ public class Lesson {
         this.username = username;
     }
 
+    public Lesson(){
+
+    }
+
     public String getLessonId() {
         return lessonId;
     }
