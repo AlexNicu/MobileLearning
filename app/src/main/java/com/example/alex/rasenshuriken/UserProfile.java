@@ -41,6 +41,7 @@ String displayName;
     String imageUrl;
     FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +110,7 @@ String displayName;
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(UserProfile.this,"Page Updated",Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(UserProfile.this,FileUpload.class);
                         intent.putExtra("username",displayText);
                     }

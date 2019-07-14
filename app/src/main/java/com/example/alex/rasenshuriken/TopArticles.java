@@ -14,16 +14,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.data.model.User;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class TopArticles extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 TextView lines;
-
+FirebaseUser currentUser;
+FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ TextView lines;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mAuth=FirebaseAuth.getInstance();
+        currentUser=mAuth.getCurrentUser();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -39,7 +45,9 @@ TextView lines;
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        if (currentUser!=null) {
+            updateNavHeader();
+        }
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -90,9 +98,16 @@ TextView lines;
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this,UserProfile.class));
         } else if (id == R.id.nav_logout) {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this,TopArticles.class));
+
+
         } else if (id == R.id.nav_upload) {
-            startActivity(new Intent(this,MainActivity.class));
+            if(currentUser.getDisplayName()==null) {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+            else{
+                startActivity(new Intent(this, UplArticles.class));
+            }
 
         } else if (id == R.id.nav_share) {
 
@@ -107,6 +122,22 @@ TextView lines;
         startActivity(i);
     }
 
+    public void updateNavHeader(){
+        if(currentUser.getDisplayName()!=null) {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = headerView.findViewById(R.id.usernameNavView);
+            ImageView navUserPhoto = headerView.findViewById(R.id.ImageNavView);
+
+            navUsername.setText(currentUser.getDisplayName());
+            if(currentUser.getPhotoUrl()!=null) {
+                Glide.with(this).load(currentUser.getPhotoUrl()).into(navUserPhoto);
+            }else{
+                Glide.with(this).load(R.drawable.logo);
+            }
+        }
+
+    }
 
 
 }

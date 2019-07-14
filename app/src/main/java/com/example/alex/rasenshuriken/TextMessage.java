@@ -1,23 +1,26 @@
 package com.example.alex.rasenshuriken;
 
 public class TextMessage {
-    String TextMessageID;
-    String Textmessage;
-    String domain;
-    String subdomain;
-    String title;
-    String username;
-    int page;
+    private   String TextMessageID;
+    private  String Textmessage;
+    private  String domain;
+    private  String subdomain;
+    private  String title;
+    private  String username;
+    private  int page;
 
-    public TextMessage(String textMessageID, String Textmessage, String domain, String subdomain, String title, String username, int page) {
+    public TextMessage(String textMessageID, String textMessage , String domain, String subdomain, String title, String username, int page) {
         this.TextMessageID = textMessageID;
-        this.Textmessage = Textmessage;
+        this.Textmessage = textMessage ;
         this.domain = domain;
         this.subdomain = subdomain;
         this.title = title;
         this.username = username;
         this.page=page;
     }
+
+
+    public TextMessage(){}
 
     public String getTextMessageID() {
         return TextMessageID;
@@ -31,8 +34,8 @@ public class TextMessage {
         return Textmessage;
     }
 
-    public void setText(String text1) {
-        Textmessage = text1;
+    public void setText(String textMessage ) {
+        Textmessage = textMessage ;
     }
 
     public String getDomain() {

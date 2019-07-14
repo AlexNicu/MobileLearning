@@ -40,7 +40,7 @@ public class ListArticles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_articles);
-
+        messageList = new ArrayList<>();
         lessonsList=new ArrayList<>();
         listViewLessons=findViewById(R.id.ArticlesList);
         databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
@@ -67,7 +67,7 @@ public class ListArticles extends AppCompatActivity {
                 TextMessage tm=messageList.get(0);
 
 
-                intent.putExtra(TEXT,tm.getText());
+                intent.putExtra(TEXT,lesson.getUsername());
                 intent.putExtra(LESSON_NAME,lesson.getTitle());
 
                 startActivity(intent);
