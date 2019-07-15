@@ -94,7 +94,6 @@ FirebaseAuth mAuth;
             startActivity(new Intent(this,TopArticles.class));
         } else if (id == R.id.nav_articles) {
             startActivity(new Intent(this,ListArticles.class));
-//TODO trebuie facuta o tranzitie intre ListArticles si ListArticles in functie de care activitate e testata
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this,UserProfile.class));
         } else if (id == R.id.nav_logout) {

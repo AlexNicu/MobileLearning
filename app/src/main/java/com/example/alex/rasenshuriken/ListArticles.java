@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +31,7 @@ public class ListArticles extends AppCompatActivity {
     DatabaseReference databaseText;
     List<Lesson> lessonsList;
     List<TextMessage> messageList;
-
+    public int counter=0;
     int page;
     TextMessage textMessage;
     public static final String LESSON_NAME="lessonName";
@@ -48,8 +49,12 @@ public class ListArticles extends AppCompatActivity {
         databaseText.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                TextMessage textMessage= dataSnapshot.getValue(TextMessage.class);
-                messageList.add(textMessage);
+                for (DataSnapshot textSnapshot : dataSnapshot.getChildren()) {
+
+                    TextMessage textMessage = textSnapshot.getValue(TextMessage.class);
+                    messageList.add(textMessage);
+                    counter++;
+                }
             }
 
             @Override
@@ -63,11 +68,20 @@ public class ListArticles extends AppCompatActivity {
         listViewLessons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int i=0;
                 Lesson lesson = lessonsList.get(position);
-                TextMessage tm=messageList.get(0);
+                TextMessage tm=messageList.get(i);
+//TODO De finisat functia pentru verificare & afisare de text daca exista, iar daca nu exista sa afiseze blank
+                while(!lesson.getTitle().equals(tm.getTitle()) && (!tm.getText().equals("No text available")) ) {
+                    if(i<counter)
+                        tm = messageList.get(i++);
+                    else{
+                        tm = messageList.get(0);
+                        tm.setText("No text available");
+                    }
+                }
 
-
-                intent.putExtra(TEXT,lesson.getUsername());
+                intent.putExtra(TEXT,tm.getText());
                 intent.putExtra(LESSON_NAME,lesson.getTitle());
 
                 startActivity(intent);
@@ -87,8 +101,8 @@ public class ListArticles extends AppCompatActivity {
                 lessonsList.clear();
                 for(DataSnapshot lessonSnapshot: dataSnapshot.getChildren()){
                     Lesson lesson=lessonSnapshot.getValue(Lesson.class);
-
                     lessonsList.add(lesson);
+
                 }
                 LessonList adapter=new LessonList(ListArticles.this,lessonsList);
 

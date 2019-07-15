@@ -1,5 +1,7 @@
 package com.example.alex.rasenshuriken;
 
+import java.util.List;
+
 public class Lesson {
 
     String lessonId;
@@ -7,6 +9,7 @@ public class Lesson {
     String subdomain;
     String title;
     String username;
+
 
     public Lesson(String lessonId, String domain, String subdomain, String title, String username) {
         this.lessonId = lessonId;

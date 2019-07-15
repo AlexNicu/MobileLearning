@@ -52,8 +52,6 @@ String name, subdomain, subject;
                     et.requestFocus();
                     return;
                 }else {
-                    //TODO subdomain salveaza Macroeconomie indiferent de subiectul selectat si nu inteleg de si-l ia, fiindca am sters orice instanta a cuvantului
-                    //Microeconomie din aplicatie
                     mDatabaseReference.child("Titles/" + subject + "/" + subdomain + "/" + name + "/").push().setValue(displayText);
                     startActivity(new Intent(TitleScreen.this, UploadActivity.class));
 
