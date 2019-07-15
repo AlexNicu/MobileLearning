@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.io.File;
 
 
@@ -20,6 +22,9 @@ public class UplArticles extends AppCompatActivity {
     int idArraySubdomains = 0;
     int ok = 1, subok = 1;
     Spinner spinnerTest, spinnersubTest;
+
+
+    public static final String LESSON_ID="lessonID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,12 @@ public class UplArticles extends AppCompatActivity {
         spinnersubTest = findViewById(R.id.spinnersubTest);
         back = findViewById(R.id.back);
         next = findViewById(R.id.next);
+
+        Intent intent=getIntent();
+        String id=intent.getStringExtra(TitleScreen.LESSON_ID);
+        Intent intent2=new Intent(getApplicationContext(), LessonActivity.class);
+        intent2.putExtra(LESSON_ID, id);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

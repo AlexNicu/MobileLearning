@@ -74,7 +74,8 @@ public class FileUpload extends AppCompatActivity  {
         title = sharedpref3.getString("title", "nu-merge");
 
         mDatabaseReference=FirebaseDatabase.getInstance().getReference("Uploads");
-
+        SharedPreferences sharedpref6 = getSharedPreferences("lessonID", Context.MODE_PRIVATE);
+        String lessonId = sharedpref6.getString("ID", "nu-merge");
 
         selectFile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +96,7 @@ public class FileUpload extends AppCompatActivity  {
                 else if (PText!=null){
                     saver= PText.getText().toString();
                     String id=  mDatabaseReference.push().getKey();
-                    TextMessage tm=new TextMessage(id,saver,subject,subdomain,title,name,page);
+                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,page);
                     mDatabaseReference.child(id).setValue(tm);
                     Toast.makeText(FileUpload.this, "The text was uploaded", Toast.LENGTH_SHORT).show();
                 }
@@ -208,11 +209,14 @@ public class FileUpload extends AppCompatActivity  {
     public void Finish(View view){
         finish=findViewById(R.id.Finish);
         SharedPreferences sharedpref2 = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-       String name = sharedpref2.getString("username", "nu-merge");
+        String name = sharedpref2.getString("username", "nu-merge");
         SharedPreferences sharedpref3 = getSharedPreferences("uploadFile", Context.MODE_PRIVATE);
-       String title = sharedpref3.getString("title", "tilulNu-merge");
+        String title = sharedpref3.getString("title", "tilulNu-merge");
         String subdomain = sharedpref3.getString("subfilename", "subdomainNu-merge");
         String subject = sharedpref3.getString("filename", "subjectNu-merge");
+        SharedPreferences sharedpref6 = getSharedPreferences("lessonID", Context.MODE_PRIVATE);
+        String lessonId = sharedpref6.getString("ID", "nu-merge");
+
         finish.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,8 +224,8 @@ public class FileUpload extends AppCompatActivity  {
 
                 databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
                 String id=databaseLesson.push().getKey();
-                Lesson lesson=new Lesson(id, subject,subdomain,title,name);
-                databaseLesson.child(id).setValue(lesson);
+                Lesson lesson=new Lesson(lessonId, subject,subdomain,title,name);
+                databaseLesson.child(lessonId).setValue(lesson);
 
                 page=0;
 

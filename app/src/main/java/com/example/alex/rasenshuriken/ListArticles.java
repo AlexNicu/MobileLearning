@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,6 +32,7 @@ public class ListArticles extends AppCompatActivity {
     DatabaseReference databaseLesson;
     DatabaseReference databaseText;
     List<Lesson> lessonsList;
+
     List<TextMessage> messageList;
     public int counter=0;
     int page;
@@ -37,15 +40,23 @@ public class ListArticles extends AppCompatActivity {
     public static final String LESSON_NAME="lessonName";
     public static final String TEXT="contextText";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_articles);
+
         messageList = new ArrayList<>();
         lessonsList=new ArrayList<>();
+
         listViewLessons=findViewById(R.id.ArticlesList);
+
+
+
         databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
         databaseText=FirebaseDatabase.getInstance().getReference("Uploads");
+
         databaseText.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -68,22 +79,18 @@ public class ListArticles extends AppCompatActivity {
         listViewLessons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int i=0;
+
                 Lesson lesson = lessonsList.get(position);
-                TextMessage tm=messageList.get(i);
-//TODO De finisat functia pentru verificare & afisare de text daca exista, iar daca nu exista sa afiseze blank
-                while(!lesson.getTitle().equals(tm.getTitle()) && (!tm.getText().equals("No text available")) ) {
-                    if(i<counter)
-                        tm = messageList.get(i++);
-                    else{
-                        tm = messageList.get(0);
-                        tm.setText("No text available");
+                intent.putExtra(TEXT,  "No text available");//implicit, dacă nu va găsi un mesaj asociat
+
+                for (TextMessage tm : messageList) {
+                    if (lesson.getLessonId().equals(tm.getLessonID())) {//poate compari dupa id-ul lectiei si nu dupa titlu
+                        intent.putExtra(TEXT, tm.getText());//a gasit, inlocuieste textul implicit de mai sus cu valoarea din Firebase
+                        break;//nu mai mergem mai departe în for, am gasit ceea ce cautam
                     }
                 }
 
-                intent.putExtra(TEXT,tm.getText());
-                intent.putExtra(LESSON_NAME,lesson.getTitle());
-
+                intent.putExtra(LESSON_NAME, lesson.getTitle());
                 startActivity(intent);
             }
         });
@@ -94,6 +101,8 @@ public class ListArticles extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
 
         databaseLesson.addValueEventListener(new ValueEventListener() {
             @Override

@@ -7,10 +7,12 @@ public class TextMessage {
     private  String subdomain;
     private  String title;
     private  String username;
+    private String lessonID;
     private  int page;
 
-    public TextMessage(String textMessageID, String textMessage , String domain, String subdomain, String title, String username, int page) {
+    public TextMessage(String textMessageID,String lessonID, String textMessage , String domain, String subdomain, String title, String username, int page) {
         this.TextMessageID = textMessageID;
+        this.lessonID=lessonID;
         this.Textmessage = textMessage ;
         this.domain = domain;
         this.subdomain = subdomain;
@@ -64,6 +66,14 @@ public class TextMessage {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getLessonID() {
+        return lessonID;
+    }
+
+    public void setLessonID(String lessonID) {
+        this.lessonID = lessonID;
     }
 
     public void setUsername(String username) {

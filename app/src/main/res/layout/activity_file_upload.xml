@@ -53,7 +53,8 @@
         android:layout_marginBottom="300dp"
         android:layout_height="wrap_content"
         android:text="Finish"
-        android:onClick="Finish"/>
+        android:onClick="Finish"
+        />
 
     <Button
         android:id="@+id/nextPage"

@@ -178,14 +178,7 @@ public static final String Database_Path="image";
                 startActivity(i);
             }
         });
-        // Zombie Spinner.
-        //Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
-        //ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(UploadActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.uploads));
-       // myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //mySpinner.setAdapter(myAdapter);
 
-      //  imgViewUp=findViewById(R.id.imgViewUp);
-        //imageName=findViewById(R.id.imageName);
 
     }
 

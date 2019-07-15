@@ -20,6 +20,9 @@ TextView tv;
 EditText et;
 DatabaseReference mDatabaseReference;
 String name, subdomain, subject;
+DatabaseReference databaseLesson;
+
+    public static final String LESSON_ID="lessonID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,15 @@ String name, subdomain, subject;
         subject = sharedpref3.getString("filename", "Nu-merge");
 
         mDatabaseReference=FirebaseDatabase.getInstance().getReference();
+        databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
+        String id=databaseLesson.push().getKey();
+        SharedPreferences sharedpref6=getSharedPreferences("lessonID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor6=sharedpref6.edit();
+        editor6.putString("ID",id);
+        editor6.apply();
+
+        Intent intent=new Intent(getApplicationContext(), FileUpload.class);
+
 
         next2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +65,7 @@ String name, subdomain, subject;
                     return;
                 }else {
                     mDatabaseReference.child("Titles/" + subject + "/" + subdomain + "/" + name + "/").push().setValue(displayText);
+                    intent.putExtra(LESSON_ID, id );
                     startActivity(new Intent(TitleScreen.this, UploadActivity.class));
 
                 }
