@@ -25,9 +25,10 @@ public class LessonActivity extends AppCompatActivity {
     TextView titleview;
     TextView textview, testView;
     WebView   webView;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
+
     StorageReference storageRef;
     String test;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,8 @@ public class LessonActivity extends AppCompatActivity {
                 //aici se incarca webView-ul
                 Uri downloadUrl = uri;
                 test = downloadUrl.toString();
-                testView.setText(test);
-                //webView.loadUrl(test);
+               // testView.setText(test);
+                webView.loadUrl(test);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
