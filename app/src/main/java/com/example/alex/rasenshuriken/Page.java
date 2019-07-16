@@ -4,7 +4,7 @@ public class Page {
 
     private String LessonId;
     private  String TextMessage;
-    private String LinkURL;
+    private String LinkURL;//scos
     private String pageNumber;
     private String pageID;
 
