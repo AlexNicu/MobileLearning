@@ -2,6 +2,7 @@ package com.example.alex.rasenshuriken;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,16 +23,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class FileUpload extends AppCompatActivity  {
 
@@ -44,13 +51,16 @@ public class FileUpload extends AppCompatActivity  {
     String pivot, name, subject, subdomain, title, saver;
     DatabaseReference mDatabaseReference;
     DatabaseReference databaseLesson;
+    private Uri ImageUri;
     int page;
+    StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
 
+        mStorageRef=FirebaseStorage.getInstance().getReference("Uploads");
 
         storage = FirebaseStorage.getInstance(); //returns an object of FireBase Storage
         database = FirebaseDatabase.getInstance();
@@ -91,21 +101,48 @@ public class FileUpload extends AppCompatActivity  {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pdfUri != null)
+                  if(pdfUri != null && PText!=null){
                     uploadFile(pdfUri);
-                else if (PText!=null){
                     saver= PText.getText().toString();
                     String id=  mDatabaseReference.push().getKey();
                     TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,page);
                     mDatabaseReference.child(id).setValue(tm);
                     Toast.makeText(FileUpload.this, "The text was uploaded", Toast.LENGTH_SHORT).show();
                 }
+                else if (PText!=null && pdfUri ==null){
+                    saver= PText.getText().toString();
+                    String id=  mDatabaseReference.push().getKey();
+                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,page);
+                    mDatabaseReference.child(id).setValue(tm);
+                    Toast.makeText(FileUpload.this, "The text was uploaded", Toast.LENGTH_SHORT).show();
+                }
+                else if (pdfUri != null )
+                      uploadFile(pdfUri);
                 else
-                    Toast.makeText(FileUpload.this, "A file must be selected", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FileUpload.this, "A file or a text must be inserted", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cR= getContentResolver();
+        MimeTypeMap mime=MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+
+    }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //check if the user has selected a file or not
+        if (requestCode == 8 && resultCode == RESULT_OK && data != null) {
+            pdfUri = data.getData(); // returns the uri of the selected file
+            notification.setText("A file has been selected: " + data.getData().getLastPathSegment());
+
+
+        } else {
+            Toast.makeText(FileUpload.this, " A file must be selected", Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -116,14 +153,17 @@ public class FileUpload extends AppCompatActivity  {
         progressDialog.setProgress(0);
         progressDialog.show();
 
-        String fileName = System.currentTimeMillis() + "";
+        String fileName = System.currentTimeMillis() + "."+getFileExtension(pdfUri);
         StorageReference storageReference = storage.getReference(); //returns the root path
         storageReference.child("Uploads/" + subject + "/" + subdomain + "/" + name + "/" + page).child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                String url = taskSnapshot.getStorage().getDownloadUrl().toString(); //return the url of the uploaded file
-                //storing the url in the database
+               String url = taskSnapshot.getStorage().getDownloadUrl().toString(); //return the url of the uploaded file
                 DatabaseReference reference = database.getReference(); //return the path to root
+               Upload upload = new Upload(fileName,url);
+               String uploadId=mDatabaseReference.push().getKey();
+               mDatabaseReference.child(uploadId).setValue(upload);
+
                 reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -147,6 +187,7 @@ public class FileUpload extends AppCompatActivity  {
             }
         });
 
+
     }
 
     @Override
@@ -167,7 +208,7 @@ public class FileUpload extends AppCompatActivity  {
         } else if (pivot.contains("video")) {
             intent.setType("video/*");
         } else if (pivot.contains("image")) {
-            intent.setType("images/*");
+            intent.setType("image/*");
         } else {
             Toast.makeText(FileUpload.this, "Error last else", Toast.LENGTH_LONG).show();
         }
@@ -175,18 +216,6 @@ public class FileUpload extends AppCompatActivity  {
         startActivityForResult(intent, 8);
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //check if the user has selected a file or not
-        if (requestCode == 8 && resultCode == RESULT_OK && data != null) {
-            pdfUri = data.getData(); // returns the uri of the selected file
-            notification.setText("A file has been selected: " + data.getData().getLastPathSegment());
-        } else {
-            Toast.makeText(FileUpload.this, " A file must be selected", Toast.LENGTH_LONG).show();
-        }
-
-    }
 
 
     public void NextPage(View view) {
@@ -228,7 +257,10 @@ public class FileUpload extends AppCompatActivity  {
                 databaseLesson.child(lessonId).setValue(lesson);
 
                 page=0;
-
+                SharedPreferences sharedpref4 = getSharedPreferences("uploadInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor4 = sharedpref4.edit();
+                editor4.putInt("page", page);
+                editor4.apply();
                 startActivity(new Intent(FileUpload.this, TopArticles.class));
 
             }
@@ -236,6 +268,9 @@ public class FileUpload extends AppCompatActivity  {
 
 
 
+
     }
+
+
 
 }

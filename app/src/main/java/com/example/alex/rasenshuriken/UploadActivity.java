@@ -181,7 +181,7 @@ public static final String Database_Path="image";
 
 
     }
-
+//button 2 and 3 + textlink4
     public void btnBrowseImg(View view) {
         Intent intent=new Intent();
         intent.setType("image/*");
