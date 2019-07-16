@@ -20,6 +20,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.net.URI;
+import java.net.URL;
+
 public class LessonActivity extends AppCompatActivity {
 
     TextView titleview;
@@ -35,11 +38,10 @@ public class LessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
 
-
         //gs reference e URI luat in FileUpload, deci ii dau string url in loc de link
         titleview=findViewById(R.id.LessonTitle);
         textview=findViewById(R.id.TextLesson);
-         testView=findViewById(R.id.Test);
+       //  testView=findViewById(R.id.Test);
 
         Intent intent=getIntent();
          test=intent.getStringExtra(ListArticles.TEST);
