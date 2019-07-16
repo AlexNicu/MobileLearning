@@ -56,6 +56,7 @@ public class FileUpload extends AppCompatActivity  {
     int page, counter;
     StorageReference mStorageRef;
     List<Page> listPage;
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,12 +121,11 @@ public class FileUpload extends AppCompatActivity  {
                     saver= PText.getText().toString();
                     String id=  mDatabaseReference.push().getKey();
 
-
-                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,Pageid);
+                    TextMessage tm=new TextMessage(id,saver,subject,subdomain,title,name,lessonId,Pageid);
                     mDatabaseReference.child(id).setValue(tm);
 
                     Page pageClass=new Page(lessonId,saver,pdfUri.toString(),page+"",Pageid);
-                    pageDatabaseReference.child(id).setValue(pageClass);
+                    pageDatabaseReference.child(Pageid).setValue(pageClass);
                     listPage.add(pageClass);
                     counter++;
 
@@ -151,6 +151,14 @@ public class FileUpload extends AppCompatActivity  {
         //check if the user has selected a file or not
         if (requestCode == 8 && resultCode == RESULT_OK && data != null) {
             pdfUri = data.getData(); // returns the uri of the selected file
+            Uri returnUri=data.getData();
+            type=getContentResolver().getType(returnUri);
+
+            SharedPreferences sharedpref8 = getSharedPreferences("typeInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor8 = sharedpref8.edit();
+            editor8.putString("type", type);
+            editor8.apply();
+
             notification.setText("A file has been selected: " + data.getData().getLastPathSegment());
         } else {
             Toast.makeText(FileUpload.this, " A file must be selected", Toast.LENGTH_LONG).show();
@@ -178,6 +186,7 @@ public class FileUpload extends AppCompatActivity  {
 //ACUM ARE GS: IN ADRESA URL
                 SharedPreferences sharedpref7 = getSharedPreferences("idPage", Context.MODE_PRIVATE);
                String Pageid = sharedpref7.getString("pageID", "nu-merge");
+
 
                Upload upload = new Upload(fileName,url, lessonId, Pageid);
                String uploadId=fileDatabaseReference.push().getKey();

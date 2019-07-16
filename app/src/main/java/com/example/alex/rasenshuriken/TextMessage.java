@@ -11,8 +11,8 @@ public class TextMessage {
     private String pageId;
 
     public TextMessage(String textMessageID, String textmessage, String domain, String subdomain, String title, String username, String lessonID, String pageId) {
-        TextMessageID = textMessageID;
-        Textmessage = textmessage;
+        this.TextMessageID = textMessageID;
+       this.Textmessage = textmessage;
         this.domain = domain;
         this.subdomain = subdomain;
         this.title = title;

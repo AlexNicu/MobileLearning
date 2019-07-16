@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class LessonList extends ArrayAdapter<Lesson> {
     TextView textViewTitle,textViewUsername;
-
+    WebView webView;
 
     private Activity context;
     private List<Lesson> lessonList;
@@ -25,6 +26,7 @@ public class LessonList extends ArrayAdapter<Lesson> {
 
 
     }
+
 
     @NonNull
     @Override

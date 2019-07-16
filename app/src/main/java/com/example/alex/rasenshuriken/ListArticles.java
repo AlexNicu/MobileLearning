@@ -30,17 +30,19 @@ public class ListArticles extends AppCompatActivity {
 
     ListView listViewLessons;
     DatabaseReference databaseLesson;
-    DatabaseReference databaseText;
+    DatabaseReference databaseText, fileUpload;
     List<Lesson> lessonsList;
-
+    List<Upload> uploadList;
     List<TextMessage> messageList;
+    public int counter2=0;
     public int counter=0;
     int page;
     TextMessage textMessage;
+
     public static final String LESSON_NAME="lessonName";
     public static final String TEXT="contextText";
-
-
+    public static final String TEST="test";
+   // public static final String TYPE="type";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,29 @@ public class ListArticles extends AppCompatActivity {
 
         messageList = new ArrayList<>();
         lessonsList=new ArrayList<>();
+        uploadList=new ArrayList<>();
 
         listViewLessons=findViewById(R.id.ArticlesList);
 
-
-
         databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
         databaseText=FirebaseDatabase.getInstance().getReference("Uploads");
+        fileUpload=FirebaseDatabase.getInstance().getReference("FileUploads");
+
+        fileUpload.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot textSnapshot : dataSnapshot.getChildren()){
+                    Upload upload=textSnapshot.getValue(Upload.class);
+                    uploadList.add(upload);
+                    counter2++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         databaseText.addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,6 +93,9 @@ public class ListArticles extends AppCompatActivity {
         });
 
 
+      //  SharedPreferences sharedpref8 = getSharedPreferences("typeInfo", Context.MODE_PRIVATE);
+     //   String type = sharedpref8.getString("type", "nu-merge");
+
         Intent intent=new Intent(getApplicationContext(), LessonActivity.class);
         listViewLessons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,8 +110,15 @@ public class ListArticles extends AppCompatActivity {
                         break;//nu mai mergem mai departe în for, am gasit ceea ce cautam
                     }
                 }
+                for(Upload up : uploadList){
+                    if (lesson.getLessonId().equals(up.getLessonId())){
+                        intent.putExtra(TEST,up.getLinkUrl());
+                        break;
+                    }
+                }
 
                 intent.putExtra(LESSON_NAME, lesson.getTitle());
+             //   intent.putExtra(TYPE,type);
                 startActivity(intent);
             }
         });
