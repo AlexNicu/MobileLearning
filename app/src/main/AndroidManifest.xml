@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LessonActivity4"></activity>
+        <activity android:name=".LessonActivity3" />
+        <activity android:name=".LessonActivity2" />
         <activity android:name=".TitleScreen" />
         <activity android:name=".ListArticles" />
         <activity android:name=".MyListView" />

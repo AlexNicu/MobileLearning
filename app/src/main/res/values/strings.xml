@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RasenShuriken</string>
+    <string name="app_name">MobileLearning</string>
     <string name="addIntent">Click here to add an Intent</string>
     <string-array name="uploads">
         <item>Text</item>

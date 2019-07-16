@@ -5,8 +5,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,7 +37,7 @@ public class LessonActivity extends AppCompatActivity {
     StorageReference storageRef;
     String test;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-
+    Button back,next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,22 @@ public class LessonActivity extends AppCompatActivity {
         titleview=findViewById(R.id.LessonTitle);
         textview=findViewById(R.id.TextLesson);
        //  testView=findViewById(R.id.Test);
+        back=findViewById(R.id.backPage);
+        next=findViewById(R.id.followingPage);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LessonActivity.this, ListArticles.class));
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LessonActivity.this, LessonActivity2.class));
+            }
+        });
 
         Intent intent=getIntent();
          test=intent.getStringExtra(ListArticles.TEST);
@@ -82,7 +103,29 @@ public class LessonActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.super_menu,menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.backmenu:
+                startActivity(new Intent(LessonActivity.this, ListArticles.class));
+                break;
+            case R.id.nextmenu:
+                startActivity(new Intent(LessonActivity.this, LessonActivity2.class));
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

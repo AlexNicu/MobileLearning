@@ -42,7 +42,7 @@ public class ListArticles extends AppCompatActivity {
     public static final String LESSON_NAME="lessonName";
     public static final String TEXT="contextText";
     public static final String TEST="test";
-   // public static final String TYPE="type";
+    public static final String TYPE="type";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +93,8 @@ public class ListArticles extends AppCompatActivity {
         });
 
 
-      //  SharedPreferences sharedpref8 = getSharedPreferences("typeInfo", Context.MODE_PRIVATE);
-     //   String type = sharedpref8.getString("type", "nu-merge");
+       SharedPreferences sharedpref8 = getSharedPreferences("typeInfo", Context.MODE_PRIVATE);
+        String type = sharedpref8.getString("type", "nu-merge");
 
         Intent intent=new Intent(getApplicationContext(), LessonActivity.class);
         listViewLessons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,7 +118,7 @@ public class ListArticles extends AppCompatActivity {
                 }
 
                 intent.putExtra(LESSON_NAME, lesson.getTitle());
-             //   intent.putExtra(TYPE,type);
+                intent.putExtra(TYPE,type);
                 startActivity(intent);
             }
         });

@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.alex.rasenshuriken.LessonActivity">
-<TableRow
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_marginTop="20dp"
-    >
-
-
-    <TextView
-        android:layout_width="wrap_content"
+    tools:context="com.example.alex.rasenshuriken.LessonActivity3">
+    <TableRow
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/LessonTitle"
-        android:textStyle="bold"
-        android:textAppearance="@android:style/TextAppearance.Large"
         android:gravity="center"
-        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        >
 
-        />
-</TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/LessonTitle"
+            android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:gravity="center"
+            android:textSize="20dp"
+
+            />
+    </TableRow>
 
     <TableRow
         android:layout_width="500dp"
@@ -35,18 +35,36 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-                android:id="@+id/TextLesson"
+            android:id="@+id/TextLesson"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="20dp"
 
             />
     </TableRow>
+
+
+    <TableRow
+        android:layout_width="500dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="250dp"
+        android:layout_marginBottom="50dp">
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webView"
+            android:layout_below="@+id/LessonTitle"
+            >
+
+        </WebView>
+
+    </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_marginTop="590dp">
+        android:layout_marginTop="670dp">
 
 
         <Button
@@ -62,23 +80,6 @@
             android:layout_height="wrap_content"
             android:text="Next Page" />
     </TableRow>
-
-    <TableRow
-        android:layout_width="500dp"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_marginTop="180dp"
-        android:layout_marginBottom="150dp">
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/webView"
-            android:layout_below="@+id/LessonTitle"
-            >
-        </WebView>
-
-    </TableRow>
-
 
 
 </RelativeLayout>
