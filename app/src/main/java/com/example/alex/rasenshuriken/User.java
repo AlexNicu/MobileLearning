@@ -1,12 +1,12 @@
 package com.example.alex.rasenshuriken;
 
 public class User {
-    String userId;
-    String Username;
+    private String userId;
+    private  String Username;
 
     public User(String userId, String username) {
         this.userId = userId;
-        Username = username;
+        this.Username = username;
     }
 
     public String getUserId() {
@@ -22,6 +22,6 @@ public class User {
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.Username = username;
     }
 }

@@ -1,27 +1,31 @@
 package com.example.alex.rasenshuriken;
 
 public class Upload {
-    private String mName;
+    private String fileName;
     private String LinkUrl;
+    private String lessonId;
+    private String pageId;
 
     public Upload() {
-        //empty constructor needed
+
     }
 
-    public Upload(String name, String LinkUrl) {
+    public Upload(String name, String LinkUrl, String lessonId, String pageId) {
         if (name.trim().equals("")) {
             name = "No Name";
         }
-       this.mName = name;
+       this.fileName = name;
         this.LinkUrl = LinkUrl;
+        this.lessonId=lessonId;
+        this.pageId=pageId;
     }
 
     public String getName() {
-        return mName;
+        return fileName;
     }
 
     public void setName(String name) {
-        mName = name;
+       this.fileName = name;
     }
 
     public String getLinkUrl() {
@@ -31,4 +35,21 @@ public class Upload {
     public void setLinkUrl(String LinkUrl) {
         this.LinkUrl = LinkUrl;
     }
+
+    public String getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(String lessonId) {
+        this.lessonId = lessonId;
+    }
+
+    public String getPageId() {
+        return pageId;
+    }
+
+    public void setPageId(String pageId) {
+        this.pageId = pageId;
+    }
+
 }

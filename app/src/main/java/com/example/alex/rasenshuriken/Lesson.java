@@ -4,23 +4,41 @@ import java.util.List;
 
 public class Lesson {
 
-    String lessonId;
-    String domain;
-    String subdomain;
-    String title;
-    String username;
+    private   String lessonId;
+    private   String domain;
+    private   String subdomain;
+    private  String title;
+    private   String username;
+    private  List<Page> pages;
+    private  String pageNumbers;
 
-
-    public Lesson(String lessonId, String domain, String subdomain, String title, String username) {
+    public Lesson(String lessonId, String domain, String subdomain, String title, String username, List<Page> pages, String pageNumbers) {
         this.lessonId = lessonId;
         this.domain = domain;
         this.subdomain = subdomain;
         this.title = title;
         this.username = username;
+        this.pages=pages;
+        this.pageNumbers=pageNumbers;
     }
 
     public Lesson(){
+    }
 
+    public String getPageNumbers() {
+        return pageNumbers;
+    }
+
+    public void setPageNumbers(String pageNumbers) {
+        this.pageNumbers = pageNumbers;
+    }
+
+    public List<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
     }
 
     public String getLessonId() {

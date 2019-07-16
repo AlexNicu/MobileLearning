@@ -36,6 +36,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,21 +50,25 @@ public class FileUpload extends AppCompatActivity  {
     FirebaseDatabase database; //storing URLs of uploaded files
     ProgressDialog progressDialog;
     String pivot, name, subject, subdomain, title, saver;
-    DatabaseReference mDatabaseReference;
+    DatabaseReference mDatabaseReference, fileDatabaseReference, pageDatabaseReference;
     DatabaseReference databaseLesson;
     private Uri ImageUri;
-    int page;
+    int page, counter;
     StorageReference mStorageRef;
+    List<Page> listPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
 
+        listPage = new ArrayList<>();
+
         mStorageRef=FirebaseStorage.getInstance().getReference("Uploads");
 
         storage = FirebaseStorage.getInstance(); //returns an object of FireBase Storage
         database = FirebaseDatabase.getInstance();
+
         PText=(EditText)findViewById(R.id.PText);
         selectFile = findViewById(R.id.selectFile);
         upload = findViewById(R.id.uploadFile);
@@ -82,10 +87,18 @@ public class FileUpload extends AppCompatActivity  {
         //daca pagina nu exista, valoarea initiala este 0
         page = sharedpref4.getInt("page", 0);
         title = sharedpref3.getString("title", "nu-merge");
-
+        fileDatabaseReference=FirebaseDatabase.getInstance().getReference("FileUploads");
         mDatabaseReference=FirebaseDatabase.getInstance().getReference("Uploads");
+        pageDatabaseReference=FirebaseDatabase.getInstance().getReference("Pages");
         SharedPreferences sharedpref6 = getSharedPreferences("lessonID", Context.MODE_PRIVATE);
         String lessonId = sharedpref6.getString("ID", "nu-merge");
+
+        String Pageid=pageDatabaseReference.push().getKey();
+
+        SharedPreferences sharedpref7=getSharedPreferences("idPage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor7=sharedpref7.edit();
+        editor7.putString("pageID",Pageid);
+        editor7.apply();
 
         selectFile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,16 +116,25 @@ public class FileUpload extends AppCompatActivity  {
             public void onClick(View v) {
                   if(pdfUri != null && PText!=null){
                     uploadFile(pdfUri);
+
                     saver= PText.getText().toString();
                     String id=  mDatabaseReference.push().getKey();
-                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,page);
+
+
+                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,Pageid);
                     mDatabaseReference.child(id).setValue(tm);
+
+                    Page pageClass=new Page(lessonId,saver,pdfUri.toString(),page+"",Pageid);
+                    pageDatabaseReference.child(id).setValue(pageClass);
+                    listPage.add(pageClass);
+                    counter++;
+
                     Toast.makeText(FileUpload.this, "The text was uploaded", Toast.LENGTH_SHORT).show();
                 }
-                else if (PText!=null && pdfUri ==null){
+                else if (PText!=null){
                     saver= PText.getText().toString();
                     String id=  mDatabaseReference.push().getKey();
-                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,page);
+                    TextMessage tm=new TextMessage(id,lessonId,saver,subject,subdomain,title,name,Pageid);
                     mDatabaseReference.child(id).setValue(tm);
                     Toast.makeText(FileUpload.this, "The text was uploaded", Toast.LENGTH_SHORT).show();
                 }
@@ -124,22 +146,12 @@ public class FileUpload extends AppCompatActivity  {
         });
     }
 
-    private String getFileExtension(Uri uri){
-        ContentResolver cR= getContentResolver();
-        MimeTypeMap mime=MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
-
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //check if the user has selected a file or not
         if (requestCode == 8 && resultCode == RESULT_OK && data != null) {
             pdfUri = data.getData(); // returns the uri of the selected file
             notification.setText("A file has been selected: " + data.getData().getLastPathSegment());
-
-
         } else {
             Toast.makeText(FileUpload.this, " A file must be selected", Toast.LENGTH_LONG).show();
         }
@@ -153,16 +165,25 @@ public class FileUpload extends AppCompatActivity  {
         progressDialog.setProgress(0);
         progressDialog.show();
 
-        String fileName = System.currentTimeMillis() + "."+getFileExtension(pdfUri);
+        SharedPreferences sharedpref6 = getSharedPreferences("lessonID", Context.MODE_PRIVATE);
+        String lessonId = sharedpref6.getString("ID", "nu-merge");
+
+        String fileName = System.currentTimeMillis() + "";
         StorageReference storageReference = storage.getReference(); //returns the root path
         storageReference.child("Uploads/" + subject + "/" + subdomain + "/" + name + "/" + page).child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-               String url = taskSnapshot.getStorage().getDownloadUrl().toString(); //return the url of the uploaded file
+               String url = taskSnapshot.getStorage().toString(); //return the url of the uploaded file
                 DatabaseReference reference = database.getReference(); //return the path to root
-               Upload upload = new Upload(fileName,url);
-               String uploadId=mDatabaseReference.push().getKey();
-               mDatabaseReference.child(uploadId).setValue(upload);
+//ACUM ARE GS: IN ADRESA URL
+                SharedPreferences sharedpref7 = getSharedPreferences("idPage", Context.MODE_PRIVATE);
+               String Pageid = sharedpref7.getString("pageID", "nu-merge");
+
+               Upload upload = new Upload(fileName,url, lessonId, Pageid);
+               String uploadId=fileDatabaseReference.push().getKey();
+                fileDatabaseReference.child(uploadId).setValue(upload);
+
+
 
                 reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -253,7 +274,8 @@ public class FileUpload extends AppCompatActivity  {
 
                 databaseLesson= FirebaseDatabase.getInstance().getReference("Lessons");
                 String id=databaseLesson.push().getKey();
-                Lesson lesson=new Lesson(lessonId, subject,subdomain,title,name);
+                String nrPages=counter+"";
+                Lesson lesson=new Lesson(lessonId, subject,subdomain,title,name, listPage,nrPages);
                 databaseLesson.child(lessonId).setValue(lesson);
 
                 page=0;

@@ -85,7 +85,7 @@ public class ListArticles extends AppCompatActivity {
 
                 for (TextMessage tm : messageList) {
                     if (lesson.getLessonId().equals(tm.getLessonID())) {//poate compari dupa id-ul lectiei si nu dupa titlu
-                        intent.putExtra(TEXT, tm.getText());//a gasit, inlocuieste textul implicit de mai sus cu valoarea din Firebase
+                        intent.putExtra(TEXT, tm.getTextmessage());//a gasit, inlocuieste textul implicit de mai sus cu valoarea din Firebase
                         break;//nu mai mergem mai departe în for, am gasit ceea ce cautam
                     }
                 }
