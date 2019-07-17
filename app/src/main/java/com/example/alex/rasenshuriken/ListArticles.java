@@ -44,6 +44,7 @@ public class ListArticles extends AppCompatActivity {
     int page;
     TextMessage textMessage;
 
+
     FirebaseUser currentUser;
     FirebaseAuth mAuth;
 
@@ -56,6 +57,8 @@ public class ListArticles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_articles);
+
+
 
         messageList = new ArrayList<>();
         lessonsList=new ArrayList<>();
@@ -141,7 +144,9 @@ public class ListArticles extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
+        Intent intentL=getIntent();
+        String checkDomeniu=intentL.getStringExtra(Articles.checkDomeniu);
+        String checksubDomeniu=intentL.getStringExtra(Articles.checksubDomeniu);
 
         databaseLesson.addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,6 +154,7 @@ public class ListArticles extends AppCompatActivity {
                 lessonsList.clear();
                 for(DataSnapshot lessonSnapshot: dataSnapshot.getChildren()){
                     Lesson lesson=lessonSnapshot.getValue(Lesson.class);
+                    if(lesson.getDomain().equals(checkDomeniu)&& lesson.getSubdomain().equals(checksubDomeniu))
                     lessonsList.add(lesson);
 
                 }

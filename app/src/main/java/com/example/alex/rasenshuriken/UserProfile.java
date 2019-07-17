@@ -193,7 +193,7 @@ String displayName;
                 startActivity(new Intent(this,TopArticles.class));
                 break;
             case R.id.nav_articles:
-                startActivity(new Intent(this,ListArticles.class));
+                startActivity(new Intent(this,Articles.class));
                 break;
             case R.id.nav_profile:
                 startActivity(new Intent(this,UserProfile.class));

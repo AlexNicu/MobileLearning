@@ -13,7 +13,7 @@ import java.util.List;
 
 public class LessonList extends ArrayAdapter<Lesson> {
     TextView textViewTitle,textViewUsername;
-    WebView webView;
+
 
     private Activity context;
     private List<Lesson> lessonList;

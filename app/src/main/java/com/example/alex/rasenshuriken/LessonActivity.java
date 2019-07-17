@@ -50,19 +50,6 @@ public class LessonActivity extends AppCompatActivity {
         back=findViewById(R.id.backPage);
         next=findViewById(R.id.followingPage);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LessonActivity.this, ListArticles.class));
-            }
-        });
-
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LessonActivity.this, LessonActivity2.class));
-            }
-        });
 
         Intent intent=getIntent();
          test=intent.getStringExtra(ListArticles.TEST);

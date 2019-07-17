@@ -73,7 +73,7 @@ FirebaseAuth mAuth;
         if (id == R.id.nav_home) {
             startActivity(new Intent(this,TopArticles.class));
         } else if (id == R.id.nav_articles) {
-            startActivity(new Intent(this,ListArticles.class));
+            startActivity(new Intent(this,Articles.class));
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this,UserProfile.class));
         } else if (id == R.id.nav_upload) {
