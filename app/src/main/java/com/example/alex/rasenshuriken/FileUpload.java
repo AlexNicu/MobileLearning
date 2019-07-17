@@ -13,6 +13,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
@@ -28,6 +31,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
@@ -58,6 +63,9 @@ public class FileUpload extends AppCompatActivity  {
     List<Page> listPage;
     String type;
 
+    FirebaseUser currentUser;
+    FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +77,9 @@ public class FileUpload extends AppCompatActivity  {
 
         storage = FirebaseStorage.getInstance(); //returns an object of FireBase Storage
         database = FirebaseDatabase.getInstance();
+
+        mAuth=FirebaseAuth.getInstance();
+        currentUser=mAuth.getCurrentUser();
 
         PText=(EditText)findViewById(R.id.PText);
         selectFile = findViewById(R.id.selectFile);
@@ -302,6 +313,39 @@ public class FileUpload extends AppCompatActivity  {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.activities_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case  R.id.nav_home:
+                startActivity(new Intent(this,TopArticles.class));
+                break;
+            case R.id.nav_articles:
+                startActivity(new Intent(this,ListArticles.class));
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(this,UserProfile.class));
+                break;
+            case R.id.nav_upload:
+                if (currentUser.getDisplayName() != null) {
+                    startActivity(new Intent(this, UplArticles.class));
+                }else{
+                    startActivity(new Intent(this, MainActivity.class));
+                }
+                break;
+
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

@@ -7,6 +7,9 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +44,9 @@ public class ListArticles extends AppCompatActivity {
     int page;
     TextMessage textMessage;
 
+    FirebaseUser currentUser;
+    FirebaseAuth mAuth;
+
     public static final String LESSON_NAME="lessonName";
     public static final String TEXT="contextText";
     public static final String TEST="test";
@@ -52,6 +60,9 @@ public class ListArticles extends AppCompatActivity {
         messageList = new ArrayList<>();
         lessonsList=new ArrayList<>();
         uploadList=new ArrayList<>();
+
+        mAuth=FirebaseAuth.getInstance();
+        currentUser=mAuth.getCurrentUser();
 
         listViewLessons=findViewById(R.id.ArticlesList);
 
@@ -154,5 +165,37 @@ public class ListArticles extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.activities_menu,menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case  R.id.nav_home:
+                startActivity(new Intent(this,TopArticles.class));
+                break;
+            case R.id.nav_articles:
+                startActivity(new Intent(this,ListArticles.class));
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(this,UserProfile.class));
+                break;
+            case R.id.nav_upload:
+                if (currentUser.getDisplayName() != null) {
+                    startActivity(new Intent(this, UplArticles.class));
+                }else{
+                    startActivity(new Intent(this, MainActivity.class));
+                }
+                break;
+
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

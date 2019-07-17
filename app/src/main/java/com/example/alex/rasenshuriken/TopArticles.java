@@ -76,10 +76,6 @@ FirebaseAuth mAuth;
             startActivity(new Intent(this,ListArticles.class));
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this,UserProfile.class));
-        } else if (id == R.id.nav_logout) {
-            startActivity(new Intent(this,TopArticles.class));
-
-
         } else if (id == R.id.nav_upload) {
             if(currentUser.getDisplayName()==null) {
                 startActivity(new Intent(this, MainActivity.class));

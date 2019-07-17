@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +15,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.File;
@@ -23,6 +28,8 @@ public class UplArticles extends AppCompatActivity {
     int ok = 1, subok = 1;
     Spinner spinnerTest, spinnersubTest;
 
+    FirebaseUser currentUser;
+    FirebaseAuth mAuth;
 
     public static final String LESSON_ID="lessonID";
 
@@ -41,6 +48,8 @@ public class UplArticles extends AppCompatActivity {
         Intent intent2=new Intent(getApplicationContext(), LessonActivity.class);
         intent2.putExtra(LESSON_ID, id);
 
+        mAuth= FirebaseAuth.getInstance();
+        currentUser=mAuth.getCurrentUser();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +144,39 @@ public class UplArticles extends AppCompatActivity {
         });
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.activities_menu,menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case  R.id.nav_home:
+                startActivity(new Intent(this,TopArticles.class));
+                break;
+            case R.id.nav_articles:
+                startActivity(new Intent(this,ListArticles.class));
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(this,UserProfile.class));
+                break;
+            case R.id.nav_upload:
+                if (currentUser.getDisplayName() != null) {
+                    startActivity(new Intent(this, UplArticles.class));
+                }else{
+                    startActivity(new Intent(this, MainActivity.class));
+                }
+                break;
+
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
 

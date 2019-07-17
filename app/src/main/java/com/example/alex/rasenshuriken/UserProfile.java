@@ -8,8 +8,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,7 +45,7 @@ String displayName;
     ProgressBar pb;
     String imageUrl;
     FirebaseAuth mAuth;
-
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +53,11 @@ String displayName;
         setContentView(R.layout.activity_user_profile);
 
         mAuth=FirebaseAuth.getInstance();
+        currentUser=mAuth.getCurrentUser();
 
         imgView= findViewById(R.id.imgView);
         Username= findViewById(R.id.etUserName);
         pb=findViewById(R.id.progressbar);
-
-
-
 
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +178,38 @@ String displayName;
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.activities_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case  R.id.nav_home:
+                startActivity(new Intent(this,TopArticles.class));
+                break;
+            case R.id.nav_articles:
+                startActivity(new Intent(this,ListArticles.class));
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(this,UserProfile.class));
+                break;
+            case R.id.nav_upload:
+                if (currentUser.getDisplayName() != null) {
+                    startActivity(new Intent(this, UplArticles.class));
+                }else{
+                    startActivity(new Intent(this, MainActivity.class));
+                }
+                break;
 
 
+
+            }
+        return super.onOptionsItemSelected(item);
+        }
 
 }
