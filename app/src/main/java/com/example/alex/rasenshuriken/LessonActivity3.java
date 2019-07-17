@@ -1,6 +1,8 @@
 package com.example.alex.rasenshuriken;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +12,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -27,7 +31,7 @@ public class LessonActivity3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lesson3);
+        setContentView(R.layout.activity_lesson);
 
         //gs reference e URI luat in FileUpload, deci ii dau string url in loc de link
         titleview = findViewById(R.id.LessonTitle);
@@ -37,15 +41,15 @@ public class LessonActivity3 extends AppCompatActivity {
         next = findViewById(R.id.followingPage);
 
 
-        //     Intent intent=getIntent();
-        //      test=intent.getStringExtra(ListArticles.TEST);
+             Intent intent=getIntent();
+              test=intent.getStringExtra(ListArticles.TEST);
 
-//        storageRef=storage.getReferenceFromUrl(test);
+        storageRef=storage.getReferenceFromUrl(test);
 
         webView = findViewById(R.id.webView);
 
         //  webView.loadUrl();
-/*
+
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -63,14 +67,14 @@ public class LessonActivity3 extends AppCompatActivity {
             }
         });
 
-*/
-        //      String title=intent.getStringExtra(ListArticles.LESSON_NAME);
-        //     String text=intent.getStringExtra(ListArticles.TEXT);
+
+              String title=intent.getStringExtra(ListArticles.LESSON_NAME);
+             String text=intent.getStringExtra(ListArticles.TEXT);
 
 
         //  testView.setText(test);
-        //   titleview.setText(title);
-        //    textview.setText(text);
+          titleview.setText(title);
+            textview.setText(text);
 
 
     }

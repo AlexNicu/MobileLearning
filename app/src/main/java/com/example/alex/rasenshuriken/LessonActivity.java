@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -38,6 +41,12 @@ public class LessonActivity extends AppCompatActivity {
     String test;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     Button back,next;
+
+    public static final String LESSON_NAME="lessonName";
+    public static final String TEXT="contextText";
+    public static final String  url ="test";
+    public static final String  TYPE ="type";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +55,19 @@ public class LessonActivity extends AppCompatActivity {
         //gs reference e URI luat in FileUpload, deci ii dau string url in loc de link
         titleview=findViewById(R.id.LessonTitle);
         textview=findViewById(R.id.TextLesson);
-       //  testView=findViewById(R.id.Test);
+        //  testView=findViewById(R.id.Test);
         back=findViewById(R.id.backPage);
         next=findViewById(R.id.followingPage);
 
 
         Intent intent=getIntent();
-         test=intent.getStringExtra(ListArticles.TEST);
+        test=intent.getStringExtra(ListArticles.TEST);
 
         storageRef=storage.getReferenceFromUrl(test);
 
         webView=findViewById(R.id.webView);
 
-      //  webView.loadUrl();
+        //  webView.loadUrl();
 
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -67,7 +76,7 @@ public class LessonActivity extends AppCompatActivity {
                 //aici se incarca webView-ul
                 Uri downloadUrl = uri;
                 test = downloadUrl.toString();
-               // testView.setText(test);
+                // testView.setText(test);
                 webView.loadUrl(test);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -83,7 +92,7 @@ public class LessonActivity extends AppCompatActivity {
 
 
 
-      //  testView.setText(test);
+        //  testView.setText(test);
         titleview.setText(title);
         textview.setText(text);
 
@@ -105,7 +114,19 @@ public class LessonActivity extends AppCompatActivity {
                 startActivity(new Intent(LessonActivity.this, ListArticles.class));
                 break;
             case R.id.nextmenu:
-                startActivity(new Intent(LessonActivity.this, LessonActivity2.class));
+                Intent intent=getIntent();
+                String title=intent.getStringExtra(ListArticles.LESSON_NAME);
+                String test=intent.getStringExtra(ListArticles.TEST);
+                String text=intent.getStringExtra(ListArticles.TEXT);
+                String nexturl=intent.getStringExtra(ListArticles.TYPE);
+
+                Intent intent2=new Intent(getApplicationContext(), LessonActivity.class);
+                intent2.putExtra(LESSON_NAME, title);
+                intent2.putExtra(TEXT, text);
+                intent2.putExtra(url, test);
+                intent2.putExtra(TYPE, nexturl);
+
+                startActivity(intent2);
                 break;
 
         }

@@ -93,8 +93,7 @@ FirebaseAuth mAuth;
         return true;
     }
     public void btnRedirect(View v){
-        Intent i = new Intent(TopArticles.this,LessonActivity.class);
-        startActivity(i);
+
     }
 
     public void updateNavHeader(){

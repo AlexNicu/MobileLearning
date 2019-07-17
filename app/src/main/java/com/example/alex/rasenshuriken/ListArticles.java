@@ -7,6 +7,8 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,8 +31,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ListArticles extends AppCompatActivity {
 
@@ -41,8 +46,10 @@ public class ListArticles extends AppCompatActivity {
     List<TextMessage> messageList;
     public int counter2=0;
     public int counter=0;
+    int counter3=0;
     int page;
     TextMessage textMessage;
+    EditText et;
 
 
     FirebaseUser currentUser;
@@ -58,7 +65,7 @@ public class ListArticles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_articles);
 
-
+        et=findViewById(R.id.searchFilter);
 
         messageList = new ArrayList<>();
         lessonsList=new ArrayList<>();
@@ -107,7 +114,7 @@ public class ListArticles extends AppCompatActivity {
         });
 
 
-       SharedPreferences sharedpref8 = getSharedPreferences("typeInfo", Context.MODE_PRIVATE);
+        SharedPreferences sharedpref8 = getSharedPreferences("typeInfo", Context.MODE_PRIVATE);
         String type = sharedpref8.getString("type", "nu-merge");
 
         Intent intent=new Intent(getApplicationContext(), LessonActivity.class);
@@ -131,11 +138,15 @@ public class ListArticles extends AppCompatActivity {
                     }
                 }
 
+
                 intent.putExtra(LESSON_NAME, lesson.getTitle());
                 intent.putExtra(TYPE,type);
                 startActivity(intent);
             }
         });
+
+
+
 
     }
 
@@ -155,12 +166,13 @@ public class ListArticles extends AppCompatActivity {
                 for(DataSnapshot lessonSnapshot: dataSnapshot.getChildren()){
                     Lesson lesson=lessonSnapshot.getValue(Lesson.class);
                     if(lesson.getDomain().equals(checkDomeniu)&& lesson.getSubdomain().equals(checksubDomeniu))
-                    lessonsList.add(lesson);
+                        lessonsList.add(lesson);
 
                 }
                 LessonList adapter=new LessonList(ListArticles.this,lessonsList);
 
                 listViewLessons.setAdapter(adapter);
+
             }
 
             @Override
